@@ -9,11 +9,10 @@ const displayCoktailData = (drinks) => {
     const containerCoktail = document.getElementById('container-coktail');
     containerCoktail.innerHTML = '';
     drinks.forEach(drink => {
-        console.log(drink);
         const coktailDiv = document.createElement('div');
         coktailDiv.classList.add('col');
         coktailDiv.innerHTML = `
-            <div onclick="loadDrinkDetails(${drink.idDrink})" class="card">
+            <div onclick="loadDrinkDetails(${drink.idDrink})" data-bs-toggle="modal" data-bs-target="#drinkModal" class="card">
                 <img src="${drink.strDrinkThumb}" class="card-img-top" alt="...">
                 <div class="card-body">
                     <h5 class="card-title">${drink.strDrink}</h5>
@@ -26,7 +25,24 @@ const displayCoktailData = (drinks) => {
 }
 
 const loadDrinkDetails = (id) => {
+    const url = `https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=${id}`;
+    fetch(url)
+        .then(response => response.json())
+        .then(data => displayDrinkDetails(data.drinks[0]))
+        .catch(err => console.log(err))
+}
 
+const displayDrinkDetails = (drink) => {
+    console.log(drink)
+    const modalTitle = document.getElementById('modal-title');
+    modalTitle.innerText = drink.strDrink;
+    const moadDetails = document.getElementById('modal-details');
+    moadDetails.innerHTML = `
+        <div>
+            <img src="${drink.strDrinkThumb}" class="w-75 h-75">
+        </div>
+        <p>Drink Instructions: ${drink.strInstructions}.</p>
+    `;
 }
 
 const searchDrink = () => {
