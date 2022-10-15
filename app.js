@@ -13,7 +13,7 @@ const displayCoktailData = (drinks) => {
         const coktailDiv = document.createElement('div');
         coktailDiv.classList.add('col');
         coktailDiv.innerHTML = `
-            <div class="card">
+            <div onclick="loadDrinkDetails(${drink.idDrink})" class="card">
                 <img src="${drink.strDrinkThumb}" class="card-img-top" alt="...">
                 <div class="card-body">
                     <h5 class="card-title">${drink.strDrink}</h5>
@@ -23,6 +23,10 @@ const displayCoktailData = (drinks) => {
         `;
         containerCoktail.appendChild(coktailDiv);
     });
+}
+
+const loadDrinkDetails = (id) => {
+
 }
 
 const searchDrink = () => {
