@@ -22,6 +22,7 @@ const displayCoktailData = (drinks) => {
         `;
         containerCoktail.appendChild(coktailDiv);
     });
+    toggleSpinner(false);
 }
 
 const loadDrinkDetails = (id) => {
@@ -33,7 +34,6 @@ const loadDrinkDetails = (id) => {
 }
 
 const displayDrinkDetails = (drink) => {
-    console.log(drink)
     const modalTitle = document.getElementById('modal-title');
     modalTitle.innerText = drink.strDrink;
     const moadDetails = document.getElementById('modal-details');
@@ -46,11 +46,23 @@ const displayDrinkDetails = (drink) => {
 }
 
 const searchDrink = () => {
+    toggleSpinner(true);
     const search = document.getElementById('search-field');
     const searchText = search.value;
     loadCoktailData(searchText);
     search.value = '';
 }
 
-loadCoktailData('');
+const toggleSpinner = (isLodaing) => {
+    const loaderSection = document.getElementById('loader');
+    if (isLodaing === true) {
+        loaderSection.classList.remove('d-none');
+    }
+    else {
+        loaderSection.classList.add('d-none');
+    }
+}
+
+
+loadCoktailData();
 
